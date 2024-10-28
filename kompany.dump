@@ -1,0 +1,129 @@
+-- Create tables
+CREATE TABLE IF NOT EXISTS Department (
+    dept_id INT PRIMARY KEY,
+    name VARCHAR(100)
+);
+
+CREATE TABLE IF NOT EXISTS Employee (
+    emp_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    contact_number VARCHAR(20),
+    email VARCHAR(100),
+    dob DATE,
+    address VARCHAR(255),
+    dept_id INT,
+    FOREIGN KEY (dept_id) REFERENCES Department(dept_id)
+);
+
+CREATE TABLE IF NOT EXISTS Project (
+    project_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    dept_id INT,
+    project_manager_id INT,
+    FOREIGN KEY (dept_id) REFERENCES Department(dept_id),
+    FOREIGN KEY (project_manager_id) REFERENCES Employee(emp_id)
+);
+
+CREATE TABLE IF NOT EXISTS Task (
+    task_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    project_id INT,
+    FOREIGN KEY (project_id) REFERENCES Project(project_id)
+);
+
+CREATE TABLE IF NOT EXISTS Employee_Task (
+    emp_id INT,
+    task_id INT,
+    PRIMARY KEY (emp_id, task_id),
+    FOREIGN KEY (emp_id) REFERENCES Employee(emp_id),
+    FOREIGN KEY (task_id) REFERENCES Task(task_id)
+);
+
+CREATE TABLE IF NOT EXISTS Project_Manager (
+    project_manager_id INT PRIMARY KEY,
+    project_id INT,
+    FOREIGN KEY (project_id) REFERENCES Project(project_id)
+);
+
+-- Insert sample data
+INSERT INTO Department (dept_id, name) VALUES
+(1, 'Engineering'),
+(2, 'Marketing'),
+(3, 'Finance');
+
+INSERT INTO Employee (emp_id, name, contact_number, email, dob, address, dept_id) VALUES
+(1, 'John Doe', '123-456-7890', 'john@example.com', '1990-05-15', '123 Main St, City, Country', 1),
+(2, 'Jane Smith', '987-654-3210', 'jane@example.com', '1988-10-20', '456 Elm St, City, Country', 2),
+(3, 'Michael Johnson', '555-123-4567', 'michael@example.com', '1992-03-25', '789 Oak St, City, Country', 1),
+(4, 'Emily Brown', '777-888-9999', 'emily@example.com', '1995-12-10', '321 Pine St, City, Country', 3),
+(5, 'David Lee', '111-222-3333', 'david@example.com', '1991-08-05', '567 Birch St, City, Country', 2),
+(6, 'Sophia Martinez', '444-555-6666', 'sophia@example.com', '1989-07-01', '890 Cedar St, City, Country', 1),
+(7, 'Daniel Kim', '666-777-8888', 'daniel@example.com', '1993-09-15', '234 Oak St, City, Country', 1),
+(8, 'Olivia Rodriguez', '999-000-1111', 'olivia@example.com', '1994-04-30', '876 Maple St, City, Country', 2),
+(9, 'Matthew Wilson', '222-333-4444', 'matthew@example.com', '1996-11-20', '432 Pine St, City, Country', 3),
+(10, 'Emma Garcia', '888-999-0000', 'emma@example.com', '1997-02-18', '678 Elm St, City, Country', 1),
+(11, 'William Martinez', '333-444-5555', 'william@example.com', '1987-06-12', '765 Cedar St, City, Country', 2),
+(12, 'Isabella Lopez', '555-666-7777', 'isabella@example.com', '1998-03-08', '876 Birch St, City, Country', 1),
+(13, 'Ethan Lee', '777-888-9999', 'ethan@example.com', '1985-09-25', '987 Oak St, City, Country', 3),
+(14, 'Ava Hernandez', '222-333-4444', 'ava@example.com', '1999-01-30', '654 Pine St, City, Country', 1),
+(15, 'Alexander Gonzales', '111-222-3333', 'alexander@example.com', '1992-07-15', '234 Elm St, City, Country', 2),
+(16, 'Mia Smith', '444-555-6666', 'mia@example.com', '1993-04-05', '890 Cedar St, City, Country', 1),
+(17, 'James Brown', '666-777-8888', 'james@example.com', '1986-11-10', '567 Birch St, City, Country', 3),
+(18, 'Sophia Davis', '999-000-1111', 'sophia.d@example.com', '1991-06-20', '321 Oak St, City, Country', 2),
+(19, 'Michael Lee', '111-222-3333', 'michael.l@example.com', '1989-05-25', '678 Maple St, City, Country', 1),
+(20, 'Emily Anderson', '333-444-5555', 'emily.anderson@example.com', '1993-08-05', '789 Maple St, City, Country', 2);
+
+INSERT INTO Project (project_id, name, dept_id, project_manager_id) VALUES
+(101, 'Software Development', 1, 1),
+(102, 'Product Launch', 2, 2),
+(103, 'Financial Analysis', 3, 3),
+(104, 'Website Redesign', 1, 4),
+(105, 'Marketing Campaign', 2, 5);
+
+-- Assign project managers
+INSERT INTO Project_Manager (project_manager_id, project_id) VALUES
+(1, 101),
+(2, 102),
+(3, 103),
+(4, 104),
+(5, 105);
+
+INSERT INTO Task (task_id, name, project_id) VALUES
+(1001, 'Design UI', 101),
+(1002, 'Develop Backend', 101),
+(1003, 'Create Marketing Plan', 102),
+(1004, 'Analyze Revenue', 103),
+(1005, 'Implement Frontend', 101),
+(1006, 'Content Creation', 105),
+(1007, 'SEO Optimization', 105),
+(1008, 'Budget Analysis', 103),
+(1009, 'Client Meetings', 102),
+(1010, 'Testing', 101);
+
+INSERT INTO Employee_Task (emp_id, task_id) VALUES
+(1, 1001),
+(1, 1002),
+(2, 1003),
+(3, 1002),
+(4, 1004),
+(5, 1003),
+(5, 1006),
+(6, 1001),
+(6, 1002),
+(6, 1005),
+(6, 1007),
+(7, 1003),
+(7, 1006),
+(8, 1007),
+(9, 1008),
+(10, 1009),
+(11, 1010),
+(12, 1001),
+(13, 1002),
+(14, 1003),
+(15, 1004),
+(16, 1005),
+(17, 1006),
+(18, 1007),
+(19, 1008),
+(20, 1009);

@@ -1,0 +1,64 @@
+-- Connect to the motoshop database
+\c motoshop;
+
+-- Create Customer table
+CREATE TABLE Customer (
+    CustomerID SERIAL PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Email VARCHAR(100),
+    PhoneNumber VARCHAR(20),
+    Address VARCHAR(100),
+    City VARCHAR(100),
+    PostalCode VARCHAR(10),
+    Country VARCHAR(50)
+);
+
+-- Insert data into Customer table
+INSERT INTO Customer (CustomerID, FirstName, LastName, Email, PhoneNumber, Address, City, PostalCode, Country)
+VALUES
+    (28485, 'Lucas', 'De Wilde', 'opeeters@example.com', '(0647) 305383', 'Jozefpad 421', 'Ramskapelle-Nieuwpoort', '9903', 'Belgium'),
+    (53848, 'Benjamin', 'Vermeiren', 'yvonne97@example.net', '028 5949158', 'Brentboulevard 99', 'Sorée', '7752', 'Belgium'),
+    (77260, 'Cynthia', 'Claessens', 'dyildirim@example.com', '(068)-9861302', 'Petraring 62', 'Halma', '8000', 'Belgium'),
+    (20559, 'Kevin', 'De Wolf', 'epauwels@example.org', '(067) 4344408', 'Wernerhof 3', 'Marchovelette', '9885', 'Belgium'),
+    (42479, 'Marie', 'Stevens', 'myriam98@example.org', '+3251-2922576', 'Barthof 1', 'Monceau-Imbrechies', '4762', 'Belgium');
+
+-- Create cars table
+CREATE TABLE cars (
+    ProductID SERIAL PRIMARY KEY,
+    Brand VARCHAR(50),
+    Model VARCHAR(50),
+    Year INTEGER,
+    Price DECIMAL(10, 2)
+);
+
+-- Insert data into cars table
+INSERT INTO cars (ProductID, Brand, Model, Year, Price)
+VALUES
+    (22195, 'Volvo', 'XC90', 2018, 7268.46),
+    (3045, 'Lexus', 'LS', 2012, 5610.41),
+    (12960, 'Dodge', 'Ram 2500 Regular Cab', 2003, 7395.68),
+    (36588, 'Mercedes-Benz', '500 E', 1992, 2084.09),
+    (28661, 'Hyundai', 'Elantra', 2020, 5816.77);
+
+-- Create car sales table
+CREATE TABLE car_sales (
+    SalesID SERIAL PRIMARY KEY,
+    CustomerID INTEGER,
+    ProductID INTEGER,
+    Quantity INTEGER,
+    Price DECIMAL(10, 2),
+    DiscountPercent INTEGER,
+    Total DECIMAL(10, 2),
+    SalesAgent VARCHAR(50),
+    Date DATE
+);
+
+-- Insert data into car sales table
+INSERT INTO car_sales (SalesID, CustomerID, ProductID, Quantity, Price, DiscountPercent, Total, SalesAgent, Date)
+VALUES
+    (90857, 95329, 52580, 3, 7371.89, 8, 19904.1, 'Loes Maris', '2022-06-13'),
+    (3678, 82371, 37902, 2, 4008.07, 6, 7214.53, 'Tina Roelandt', '2022-12-10'),
+    (93435, 12878, 3045, 3, 5610.41, 4, 16158, 'Jens Sterckx', '2023-02-16'),
+    (9868, 93372, 10953, 6, 6741.73, 10, 38023.4, 'Annette Vermeulen', '2023-03-10'),
+    (59970, 17302, 74690, 5, 7901.77, 8, 35953.1, 'Amber Claes De Laet', '2023-04-11');

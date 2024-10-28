@@ -1,0 +1,34 @@
+-- Customer table
+CREATE TABLE Customer (
+    CustomerID SERIAL PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Email VARCHAR(100),
+    PhoneNumber VARCHAR(20),
+    Address VARCHAR(100),
+    City VARCHAR(100),
+    PostalCode VARCHAR(10),
+    Country VARCHAR(50)
+);
+
+-- Cars table
+CREATE TABLE cars (
+    ProductID SERIAL PRIMARY KEY,
+    Brand VARCHAR(50),
+    Model VARCHAR(50),
+    Year INTEGER,
+    Price DECIMAL(10, 2)
+);
+
+-- Car sales table
+CREATE TABLE car_sales (
+    SalesID SERIAL PRIMARY KEY,
+    CustomerID INTEGER,
+    ProductID INTEGER,
+    Quantity INTEGER,
+    Price DECIMAL(10, 2),
+    DiscountPercent INTEGER,
+    Total DECIMAL(10, 2),
+    SalesAgent VARCHAR(50),
+    Date DATE
+);
